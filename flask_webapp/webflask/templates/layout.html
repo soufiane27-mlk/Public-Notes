@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    {%if title%}
+    <title>{{title}}</title>
+    {%else%}
+    <title>home</title>
+    {%endif%}
+    <style>
+        /* Custom styles */
+        .navbar-custom {
+            background-color: #0d6efd;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="{{url_for('home')}}">Public Notes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{url_for('account')}}">My account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{url_for('logout')}}">logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{{url_for('login')}}" class="text-decoration-none text-white"><p class="nav-link text-white m-0 px-3 py-2 border border-1 border-white"
+                            style="background-color: #0d6efd;">
+                            <span class="fw-bold"></span> Login
+                        </p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url_for('registre')}}" class="text-decoration-none text-white"><p class="nav-link text-white m-0 px-3 py-2 border border-1 border-white "
+                            style="background-color: #0d6efd;">
+                            <span class="fw-bold"></span> Sign
+                                Up
+                        </p></a>
+                    </li>
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <dev class="container">
+        {% with messages=get_flashed_messages(with_categories=true)%}
+        {% if messages %}
+        {% for category,message in messages %}
+        <div class="alert alert-{{category}}">
+            {{message}}
+        </div>
+        {%endfor%}
+        {%endif%}
+        {%endwith %}
+        {% block content %}{% endblock %}
+    </dev>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Your Website. All rights reserved.</p>
+            <p><a href="{{ url_for('about') }}">About</a></p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

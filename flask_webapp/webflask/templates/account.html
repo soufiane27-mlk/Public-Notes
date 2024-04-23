@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="column">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <img src="{{ image_file }}" alt="Picture" class="rounded-circle me-3"
+                    style="width: 100px; height: 100px;">
+                <h5 class="m-0">{{ current_user.username }}</h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mt-5">Account Settings</h2>
+            <hr>
+
+            <div class="accordion" id="accordionModifyUsername">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingModifyUsername">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseModifyUsername" aria-expanded="false"
+                            aria-controls="collapseModifyUsername">
+                            Modify Username
+                        </button>
+                    </h2>
+                    <div id="collapseModifyUsername" class="accordion-collapse collapse"
+                        aria-labelledby="headingModifyUsername" data-bs-parent="#accordionModifyUsername">
+                        <div class="accordion-body">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    {{ form.username.label(class="form-control-label") }}
+                                
+                                    {% if form.username.errors%}
+                                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                        {%endfor%}
+                                    </div>
+                                    {% else %}
+                                    {{ form.username(class="form-control form-control-lg") }}
+                                    {%endif%}
+                                </div>
+                            <div>
+                                {{ form.submit(class="btn btn-primary") }}
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="accordion" id="accordionChangeEmail">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingChangeEmail">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseChangeEmail" aria-expanded="false"
+                            aria-controls="collapseChangeEmail">
+                            Modify Email
+                        </button>
+                    </h2>
+                    <div id="collapseChangeEmail" class="accordion-collapse collapse"
+                        aria-labelledby="headingChangeEmail" data-bs-parent="#accordionChangeEmail">
+                        <div class="accordion-body">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    {{ form1.email.label(class="form-control-label") }}
+                                
+                                    {% if form1.email.errors%}
+                                    {{ form1.email(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form1.email.errors %}
+                                        <span>{{ error }}</span>
+                                        {%endfor%}
+                                    </div>
+                                    {% else %}
+                                    {{ form1.email(class="form-control form-control-lg") }}
+                                    {%endif%}
+                                </div>
+                                <div>
+                                    {{ form1.submit(class="btn btn-primary") }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

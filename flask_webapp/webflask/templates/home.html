@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    {% if current_user.is_authenticated %}
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static',filename='img/default.jpg') }}" alt="{{ current_user.username }}"
+                    class="rounded-circle me-3" style="width: 100px; height: 100px;">
+                <h3 class="m-0"><b>{{ current_user.username }}</b></h3>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <h3>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#writePostForm"
+                    aria-expanded="false" aria-controls="writePostForm">
+                    Write a Post
+                </button>
+            </h3>
+            <div class="collapse justify-content-left" id="writePostForm">
+                <div class="container ">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            {{ form.title.label(class="form-control-label") }}
+                            {% if form.title.errors %}
+                            {{ form.title(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.title(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group justify-content-left mb-4">
+                            {{ form.text.label(class="form-control-label ") }}
+                            {% if form.text.errors %}
+                            {{ form.text(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.text.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.text(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-check">
+                            {{ form.private(class="form-check-input mr-2") }}
+                            {{ form.private.label(class="form-check-label") }}
+                        </div>
+
+                        <div>
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <hr>
+    <h3 class="mb-4">Recent Posts</h3>
+    <div class="row justify-content-center">
+        {% for post in priv_posts %}
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center"><a href="{{url_for('post',post_id=post.id)}}"
+                            class="text-decoration-none text-primary text-center">{{ post.title }}</a></h5>
+                    <p class="card-text text-left">{{ post.content[:100] }}{% if post.content|length > 100 %}{% if
+                        current_user.is_authenticated %}...{%else%}<a href="{{url_for('post',post_id=post.id)}}"
+                            class="text-decoration-none text-secondary">...login to read</a>{% endif %}{% endif %}</p>
+                    <div class="text-muted">
+                        <small>{{ post.author.username }} | {{ post.date_posted.strftime('%Y-%m-%d') }} | {%if
+                            post.private%}Private{%else%}Public{%endif%}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for post in Posts %}
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center"><a href="{{url_for('post',post_id=post.id)}}"
+                            class="text-decoration-none text-primary ">{{ post.title }}</a></h5>
+                    <p class="card-text text-left">{{ post.content[:100] }}{% if post.content|length > 100 %}{% if
+                        current_user.is_authenticated %}...{%else%}<a href="{{url_for('post',post_id=post.id)}}"
+                            class="text-decoration-none text-secondary">...login to read</a>{% endif %}{% endif %}</p>
+                    <div class="text-muted ">
+                        <small>{{ post.author.username }} | {{ post.date_posted.strftime('%Y-%m-%d') }} | {%if
+                            post.private%}Private{%else%}Public{%endif%}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+    </div>
+</div>
+{% endblock content %}

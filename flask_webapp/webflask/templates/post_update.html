@@ -1,0 +1,40 @@
+{%extends "layout.html"%}
+{% block content %}
+<div class="container">
+<form action="#" method="POST">
+    <div class="form-group">
+        {{ form.title.label(class="form-control-label") }}
+        {% if form.title.errors %}
+        {{ form.title(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.title(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.text.label(class="form-control-label") }}
+        {% if form.text.errors %}
+        {{ form.text(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+            {% for error in form.text.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.text(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+    <div class="form-check">
+        {{ form.private(class="form-check-input") }}
+        {{ form.private.label(class="form-check-label") }}
+    </div>
+    <div>
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+</div>
+{% endblock content %}
