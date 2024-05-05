@@ -30,7 +30,7 @@ Public Notes A simple note taking app! This application allows users to create, 
 ## Technologies Used
 
 - Frontend: HTML, Bootsrap
-- Backend: Flask
+- Backend: Flask, Python3
 - Database: Sqlite3
 
 ## Note
